@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resume Preview</title>
+<link rel="stylesheet" href="./resume.css">
+</head>
+<body>
+  <h1>Resume Preview</h1>
+
+  <div id="resumeContent">
+    
+  </div>
+
+  <script  src="./app.js">
+    document.addEventListener("DOMContentLoaded", function() {
+      var resumeData = JSON.parse(localStorage.getItem("resumeData"));
+
+      if (resumeData) {
+        var resumeContent = document.getElementById("resumeContent");
+
+        
+        var personalInfo = document.createElement("div");
+        personalInfo.innerHTML = "<h2>Personal Information</h2>" +
+          "<p><strong>Name:</strong> " + resumeData.name + "</p>" +
+          "<p><strong>Phone Number:</strong> " + resumeData.phone + "</p>" +
+          "<p><strong>Email:</strong> " + resumeData.email + "</p>" +
+          "<p><strong>LinkedIn:</strong> " + resumeData.linkedin + "</p>" +
+          "<p><strong>GitHub:</strong> " + resumeData.github + "</p>";
+        resumeContent.appendChild(personalInfo);
+
+        
+        var educationSection = document.createElement("div");
+        educationSection.innerHTML = "<h2>Educational Qualifications</h2>";
+        resumeData.educationalQualifications.forEach(function(qualification) {
+          educationSection.innerHTML += "<p>" + qualification + "</p>";
+        });
+        resumeContent.appendChild(educationSection);
+
+        
+        var experienceSection = document.createElement("div");
+        experienceSection.innerHTML = "<h2>Work Experience</h2>";
+        resumeData.workExperience.forEach(function(experience) {
+          experienceSection.innerHTML += "<p>" + experience + "</p>";
+        });
+        resumeContent.appendChild(experienceSection);
+
+        
+        var certificationsSection = document.createElement("div");
+        certificationsSection.innerHTML = "<h2>Certifications</h2>";
+        resumeData.certifications.forEach(function(certification) {
+          certificationsSection.innerHTML += "<p>" + certification + "</p>";
+        });
+        resumeContent.appendChild(certificationsSection);
+
+        
+        var skillsSection = document.createElement("div");
+        skillsSection.innerHTML = "<h2>Skills</h2>";
+        resumeData.skills.forEach(function(skill) {
+          skillsSection.innerHTML += "<p>" + skill + "</p>";
+        });
+        resumeContent.appendChild(skillsSection);
+      } else {
+        var message = document.createElement("p");
+        message.textContent = "No resume data found.";
+        resumeContent.appendChild(message);
+      }
+    });
+  </script>
+</body>
+</html>
